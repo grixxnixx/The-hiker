@@ -10,6 +10,8 @@ const tourRoutes = require('./routes/tourRoutes');
 const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 
+const tourController = require('./controllers/tourController');
+
 const app = express();
 
 //Body parser
@@ -26,9 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res, next) => {
-  res.redirect('/overview.html');
-});
+app.get('/', tourController.getAllTours);
 // Routers
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/users', userRoutes);
