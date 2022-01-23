@@ -8,9 +8,18 @@ const app = require('./app');
 
 // console.log(process.env.MONGODB_LOCALE);
 
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
 mongoose
-  .connect(process.env.MONGODB_LOCALE)
-  .then(() => console.log('DB connection successfully'));
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 4000;
 

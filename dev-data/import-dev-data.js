@@ -1,13 +1,26 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './config.env' });
+
 const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
 
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
 mongoose
-  .connect('mongodb://localhost:27017/myapp')
-  .then(() => console.log(`DB connection successfully`));
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => console.log('DB connection successful!'));
 
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/tour-simple.json`, 'utf-8')
