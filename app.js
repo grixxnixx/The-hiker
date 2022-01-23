@@ -28,7 +28,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', tourController.getAllTours);
+app.get('/', (req, res) => {
+  res.redirect('/overview.html');
+});
 // Routers
 app.use('/api/v1/tours', tourRoutes);
 app.use('/api/v1/users', userRoutes);
